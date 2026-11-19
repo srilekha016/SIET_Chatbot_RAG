@@ -8,7 +8,7 @@ from sentence_transformers import SentenceTransformer
 def load_pdf (pdf_path):
   def load_pdf (pdf_path):
   reader = PDFReader(str(pdf_path))
-  mypages = [ i.extract_text() or "" for i in raeder.pages]
+  mypages = [ i.extract_text() or "" for i in reader.pages]
   full_text = "\n".join(mypages).strip()
   if not full_text:
     raise ValueError("No readable Text Found")
