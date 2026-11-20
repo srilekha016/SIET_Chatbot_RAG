@@ -33,6 +33,6 @@ with st.chat_message("assistant "):
                       index, api_key = mykey)
     st.write(answer)
     
-if st.button("Clear chat")
+if st.button("Clear chat"):
    st.session_state.chat_hist = []
    st.rerun()
