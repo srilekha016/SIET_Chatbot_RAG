@@ -39,5 +39,39 @@ def build_vectors (chunks, model_name = "all-MiniLM-L6-V2"):
 def load_base (pdf_path= "01_College_Information.pdf"):
   full_text = load_pdf(pdf_path)
   chunks = create_chunks(full_text)
-  embed_model, index = build_vector(chunks)
+  index, embed_model = build_vector(chunks)
   return embed_model, chunks, index
+
+#retrieve
+def retrieve_content (question, embed_model, chunks, index, num_chunks=3):
+  if not question.strip():
+    raise ValueError("Question cannot be blank")
+    if num
+  faiss.normalize_L2(query_embed)
+   query_embed = embed_model.encode([question], convert_to_numpy = True)
+  sim_scores, vec_indies = index.search(query_embed, min(num_chunks, len(chunks)))
+  background = ""
+  for i in vec_indices[0]:
+    if i != -1:
+      background += chunks[i] + "\n\n"
+  return background
+
+#Ask:
+def ask_rag (question, embed_model, chunks, index, api_key, num_chunks, model_name = "openai/gpt-oss-120b"
+  key = api_key
+  if not key:
+    raise ValueError("API Key Missing")
+  background = retrieve_content(question, embed_model, chunks, index, num_chunks
+  prompt = """You are an professional AI Assistant.
+  Answer user question using ONLY document background below.
+  Do not invent or assume facts.
+  if information not available, simply say Information Missing.
+  Document Background : """ + background + "User Question" + question + "Answer:"
+  client = Groq(api_key = key)
+  response = client.chat.completions.create(
+    model = model_name,
+    messages = [ {"role" : "user",
+                  "content" : prompt}],
+                  temperature = 0.3,
+    )
+    return response.choices[0].message.content
