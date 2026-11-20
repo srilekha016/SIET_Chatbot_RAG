@@ -46,14 +46,14 @@ def load_base (pdf_path= "01_College_Information.pdf"):
 def retrieve_content (question, embed_model, chunks, index, num_chunks=3):
   if not question.strip():
     raise ValueError("Question cannot be blank")
-    if num
-  faiss.normalize_L2(query_embed)
-   query_embed = embed_model.encode([question], convert_to_numpy = True)
-  sim_scores, vec_indies = index.search(query_embed, min(num_chunks, len(chunks)))
-  background = ""
-  for i in vec_indices[0]:
-    if i != -1:
-      background += chunks[i] + "\n\n"
+    if num_chunks < 1:
+      query_embed = embed_model.encode([question], convert_to_numpy = True)
+      faiss.normalize_L2(query_embed)
+      sim_scores, vec_indies = index.search(query_embed, min(num_chunks, len(chunks)))
+      background = ""
+      for i in vec_indices[0]:
+        if i != -1:
+          background += chunks[i] + "\n\n"
   return background
 
 #Ask:
