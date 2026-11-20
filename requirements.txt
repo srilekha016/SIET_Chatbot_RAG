@@ -1,5 +1,5 @@
 streamlit
-filepdf
+pypdf
 sentence-transformers
 faiss-cpu
 groq
